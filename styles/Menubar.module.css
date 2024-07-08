@@ -1,0 +1,65 @@
+.brandContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.brandMenu {
+  position: absolute;
+  content: "";
+  top: 60px;
+  left: 0;
+  height: auto;
+  width: 250px;
+  background-color: #fff;
+  z-index: 999;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.brandBox {
+  background-color: var(--secondary-color);
+  padding: 12px 15px;
+  border-radius: 4px;
+  color: #fff;
+  width: 250px;
+}
+
+.brandIcon {
+  font-size: 30px !important;
+}
+
+.category {
+  padding: 15px 25px;
+  position: relative;
+}
+
+.category::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--main-color);
+  transition: 0.3s all ease-in-out;
+  transform-origin: left;
+  z-index: -1;
+}
+
+.category:hover::before {
+  width: 100%;
+}
+
+.category:hover {
+  color: #fff;
+}
+
+.searchWrapper {
+  display: none;
+}
+
+@media screen and (max-width: 1208px) {
+  .searchWrapper {
+    display: block;
+  }
+}

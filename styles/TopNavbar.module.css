@@ -1,0 +1,59 @@
+.dropdownBtn {
+  background-color: white !important;
+}
+
+.searchInput {
+  border-radius: 0;
+}
+
+.searchInput:focus {
+  box-shadow: none;
+}
+
+.searchBtn {
+  width: 200px;
+  height: 50px;
+  background: var(--secondary-color);
+  border: none;
+  color: #fff;
+}
+
+.top {
+  background-color: var(--main-color);
+  height: 50px;
+}
+
+.langImageContainer {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.langImageContainer1 {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.imageLang {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.logo {
+  width: 100%;
+}
+
+@media screen and (max-width: 1208px) {
+  .searchWrapper {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 619px) {
+  .logoContainer {
+    width: 200px !important;
+  }
+}

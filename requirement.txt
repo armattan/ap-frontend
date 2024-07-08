@@ -1,0 +1,19 @@
+the rest of the product objects
+{
+    
+  "id": 0,
+  "product_heading": "string",
+  "product_details": "string",
+  "design_propeller_size": "string",
+  "thumbnail_image": "string",
+  "deal_price": 0,
+  "chamfered": "string",
+  "cut_along_weave": "string",
+  "metal_id": 0, // needs all the details of the specific metal as object
+  "category_id": 0, // needs all the details of the specific category as object
+  "u_cat_id": 0, // need to understand what is that
+  "shop_id": 0, // the details of the shop if wanted
+  "thickness": "string",
+  "color": "string"
+
+}

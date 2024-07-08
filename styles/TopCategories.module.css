@@ -1,0 +1,49 @@
+.card {
+  width: 300px;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 130px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.name {
+  margin-top: 10px;
+}
+
+/* categories swiper start */
+.categories__swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* .categories__swiper .swiper-wrapper {
+  align-items: center;
+  justify-content: center;
+} */
+
+.categories__swiper .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  width: 150px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categories__swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* categories swiper end */
+
+@media screen and (max-width: 767px) {
+  .container {
+    display: none !important;
+  }
+}

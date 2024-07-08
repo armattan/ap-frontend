@@ -1,0 +1,139 @@
+:root {
+  --main-color: #292b2c;
+  --secondary-color: #ff324d;
+  --secondary-text-color: #687188;
+  --white-color: #fff;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* header swiper start */
+.header__swiper {
+  width: 100%;
+  height: 700px;
+}
+
+.header__swiper .swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.header__swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  object-fit: fill;
+}
+
+.header__swiper .swiper-button-prev,
+.header__swiper .swiper-button-next {
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header__swiper .swiper-button-prev::after,
+.header__swiper .swiper-button-next::after {
+  color: var(--main-color);
+  font-size: medium;
+  font-weight: bolder;
+}
+
+.header__swiper .swiper-button-prev {
+  left: 50px;
+}
+.header__swiper .swiper-button-next {
+  right: 50px;
+}
+
+/* header swiper end */
+
+/* categories swiper start */
+
+.categories__swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* .categories__swiper .swiper-wrapper {
+  align-items: center;
+  justify-content: center;
+} */
+
+.categories__swiper .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  width: 150px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categories__swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* categories swiper end */
+
+.MuiTab-textColorPrimary {
+  font-weight: bold;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  color: var(--secondary-color);
+}
+
+.MuiTabs-indicator {
+  display: none;
+}
+
+#dropdown-button-drop-1 {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  color: #464747;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.MuiAccordion-root::before {
+  display: none;
+}
+
+.kit_swiper {
+  height: 300px;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--secondary-color) !important;
+}
+
+@media screen and (max-width: 767px) {
+  .header__swiper .swiper-button-prev,
+  .header__swiper .swiper-button-next {
+    display: none;
+  }
+}
