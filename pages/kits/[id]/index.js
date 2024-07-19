@@ -148,7 +148,7 @@ const SingleKit = ({ kit, categories, error }) => {
                         className={`d-flex align-items-center justify-content-between gap-3`}
                       >
                         <Rating name="read-only" value={kit.rating} readOnly />
-                        {`(${kit?.reviews?.length} reviews)`}
+                        {`(${kit?.reviews?.length})`}
                       </div>
                     </div>
                     <div>

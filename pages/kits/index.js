@@ -142,7 +142,7 @@ const kits = ({ kits, sort, categoryId, filter, error }) => {
                 {item.reviews && (
                   <span
                     className={cardStyles.reviewCounts}
-                  >{`(${item.rating}) reviews`}</span>
+                  >{`(${item.reviews})`}</span>
                 )}
               </div>
             </div>

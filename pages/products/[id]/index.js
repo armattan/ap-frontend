@@ -123,7 +123,7 @@ const SingleProduct = ({ recentItems, product, error }) => {
                           value={product.rating}
                           readOnly
                         />
-                        {`(${product?.reviews?.length} reviews)`}
+                        {`(${product?.reviews?.length})`}
                       </div>
                     </div>
                     <div>
