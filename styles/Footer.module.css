@@ -1,0 +1,14 @@
+.container {
+  background-color: #202325;
+  min-height: 115px;
+  padding-block: 50px;
+}
+
+@media screen and (max-width: 667px) {
+  .top {
+    margin-top: 30px;
+  }
+  .section {
+    margin-block: 15px;
+  }
+}

@@ -10,40 +10,43 @@ import Link from "next/link";
 const CardProduct = ({ item }) => {
   return (
     <Paper elevation={3} className={`${styles.card}`}>
-      <div className={`${styles.imageContainer}`}>
-        <img
-          src={item.thumbnail_image}
-          alt={item.product_heading}
-          className={`${styles.image}`}
-        />
-        <div className={`${styles.tools}`}>
-          <div className={`${styles.iconWrapper}`}>
-            <AddShoppingCartIcon className={`${styles.icon}`} />
-          </div>
-          <div className={`${styles.iconWrapper}`}>
-            <ShuffleIcon className={`${styles.icon}`} />
-          </div>
-          <div className={`${styles.iconWrapper}`}>
-            <ZoomInIcon className={`${styles.icon}`} />
-          </div>
-          <div className={`${styles.iconWrapper}`}>
-            <FavoriteBorderIcon className={`${styles.icon}`} />
+      <Link href={`/products/${item.id}`} className="nav-link">
+        <div className={`${styles.imageContainer}`}>
+          <img
+            src={item.thumbnail_image}
+            alt={item.product_heading}
+            className={`${styles.image}`}
+          />
+          <div className={`${styles.tools}`}>
+            <div className={`${styles.iconWrapper}`}>
+              <AddShoppingCartIcon className={`${styles.icon}`} />
+            </div>
+            <div className={`${styles.iconWrapper}`}>
+              <ShuffleIcon className={`${styles.icon}`} />
+            </div>
+            <div className={`${styles.iconWrapper}`}>
+              <ZoomInIcon className={`${styles.icon}`} />
+            </div>
+            <div className={`${styles.iconWrapper}`}>
+              <FavoriteBorderIcon className={`${styles.icon}`} />
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
       <div className="mt-2 px-3 py-3">
         <div className={styles.title}>
           <Link href={`/products/${item.id}`} className="nav-link">
-            {item.product_heading}
+            {item.product_heading.substring(0, 40)}...
           </Link>
         </div>
         <div className={styles.price}>${item.deal_price}</div>
+
         <div className={`d-flex align-items-center mt-3 gap-3`}>
           <Rating name="read-only" value={item.rating} readOnly />
           {item.reviews && (
             <span
               className={styles.reviewCounts}
-            >{`(${item?.reviews?.length}) reviews`}</span>
+            >{`(${item?.reviews}) reviews`}</span>
           )}
         </div>
       </div>

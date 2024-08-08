@@ -1,22 +1,9 @@
 import Head from "next/head";
 import Header from "@/components/HomeComponents/Header";
-// import TopCategories from "@/components/HomeComponents/TopCategories";
-import { getCategories } from "@/api/categories";
-import { getProducts, getProductsCategories } from "@/api/products";
-import BestSellersSection from "@/components/HomeComponents/BestSellersSection";
-import FeaturedSection from "@/components/HomeComponents/FeaturedSection";
-import TopNavbar from "@/components/HomeComponents/TopNavbar";
-import Menubar from "@/components/Menubar";
-import dynamic from "next/dynamic";
-import { getKitsCategories } from "@/api/kits";
-import { getHardwareCategories } from "@/api/hardwares";
+import { getKits } from "@/api/kits";
+import FeaturedSectionKits from "@/components/FeaturedSectionKits";
 
-const TopCategories = dynamic(
-  () => import("@/components/HomeComponents/TopCategories"),
-  { ssr: false }
-);
-
-const Home = ({ categories, products }) => {
+const Home = ({ kitsFeatured, kitsBestsellers, kitsDesc }) => {
   return (
     <>
       <Head>
@@ -27,23 +14,59 @@ const Home = ({ categories, products }) => {
       </Head>
 
       <Header />
-      <TopCategories categories={categories} />
-      <BestSellersSection products={products} />
-      <FeaturedSection products={products} />
+      <div className="mt-5">
+        <FeaturedSectionKits
+          kitsBestsellers={kitsBestsellers}
+          kitsFeatured={kitsFeatured}
+          kitsDesc={kitsDesc}
+        />
+      </div>
+      {/* <div>
+        <FeaturedSectionProducts />
+      </div> */}
     </>
   );
 };
 
 export const getServerSideProps = async (ctx) => {
-  const categoriesRes = await getCategories({ size: 5 });
-  const productsRes = await getProducts({ size: 5, page: 1, sort: "asc" });
+  let error;
+  try {
+    const kitsFeatured = await getKits({
+      size: 5,
+      page: 1,
+      sort: "featured",
+    }).catch((err) => {
+      error = err?.response?.data?.detail;
+    });
+    const kitsBestsellers = await getKits({
+      size: 5,
+      page: 1,
+      sort: "bestsellers",
+    }).catch((err) => {
+      error = err?.response?.data?.detail;
+    });
+    const kitsDesc = await getKits({
+      size: 5,
+      page: 1,
+      sort: "desc",
+    }).catch((err) => {
+      error = err?.response?.data?.detail;
+    });
 
-  return {
-    props: {
-      categories: categoriesRes.data,
-      products: productsRes.data,
-    },
-  };
+    return {
+      props: {
+        kitsFeatured: kitsFeatured.data,
+        kitsBestsellers: kitsBestsellers.data,
+        kitsDesc: kitsDesc.data,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        error,
+      },
+    };
+  }
 };
 
 export default Home;

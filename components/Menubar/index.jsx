@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { categoriesFetch } from "@/store/categoriesSlice";
 import axios from "axios";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Dropdown } from "react-bootstrap";
 
 const Menubar = ({}) => {
   const router = useRouter();
@@ -125,7 +126,7 @@ const Menubar = ({}) => {
           <Box
             className={`${styles.brandBox} d-flex align-items-center justify-content-between`}
           >
-            <span>All Categories</span>
+            <span>Shopping Categories</span>
             <MenuIcon className={`${styles.brandIcon}`} />
           </Box>
         </Button>
@@ -213,9 +214,12 @@ const Menubar = ({}) => {
         </Menu>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto align-items-center">
             <Nav.Link style={{ fontWeight: "bold" }} as={Link} href="/">
               Home
+            </Nav.Link>
+            <Nav.Link style={{ fontWeight: "bold" }} as={Link} href="/kits">
+              Kits
             </Nav.Link>
             <Nav.Link style={{ fontWeight: "bold" }} as={Link} href="/products">
               Products
@@ -227,8 +231,40 @@ const Menubar = ({}) => {
             >
               Hardwares
             </Nav.Link>
-            <Nav.Link style={{ fontWeight: "bold" }} as={Link} href="/kits">
-              Kits
+            <Dropdown>
+              <Dropdown.Toggle
+                id="dropdown-basic"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "var(--bs-nav-link-color)",
+                  fontWeight: "bold",
+                }}
+              >
+                Support
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/aboutus" as={Link}>
+                  About us
+                </Dropdown.Item>
+                <Dropdown.Item href="/shipping-information">
+                  Shipping Information
+                </Dropdown.Item>
+                <Dropdown.Item href="/shipping-rates">
+                  Shipping Rates
+                </Dropdown.Item>
+                <Dropdown.Item href="/incognito-service">
+                  Incognito Service
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Nav.Link
+              style={{ fontWeight: "bold" }}
+              as={Link}
+              href="/contact-us"
+            >
+              Contact us
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

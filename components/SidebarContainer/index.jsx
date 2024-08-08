@@ -32,6 +32,7 @@ const SidebarContainer = ({
 }) => {
   const router = useRouter();
   const { pathname } = router;
+  console.log({ router });
   const [kitsClicked, setKitsClicked] = useState(false);
 
   const handleReset = () => {
@@ -143,24 +144,6 @@ const SidebarContainer = ({
           <Divider sx={{ background: "gray" }} className="my-4" />
         </div>
       )}
-
-      <div
-        style={{
-          width: "100%",
-          height: 350,
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1576806157689-f8fa4f3a82fd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-          backgroundSize: "cover",
-          position: "relative",
-        }}
-        className="mt-5"
-      >
-        <div className={styles.overlayedBanner}>
-          <h5 className="text-white">NEW COLLECTION</h5>
-          <h4 className="text-white">SALE 30% OFF</h4>
-          <Button className={styles.shopNowBtn}>shop now</Button>
-        </div>
-      </div>
     </Col>
   );
 };

@@ -20,7 +20,7 @@ const BestSellers = ({ products }) => {
   return (
     <Container
       data-aos="fade-up"
-      className={`${styles.container} d-flex flex-column align-items-center justify-content-center`}
+      className={`${styles.container} d-flex flex-column align-items-center justify-content-center mt-5`}
     >
       <div className="text-center w-50 mb-4">
         <h3>Best Sellers</h3>

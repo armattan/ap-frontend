@@ -1,6 +1,6 @@
 import { getProduct, getProducts, getProductsCategories } from "@/api/products";
 import Breadcrumb from "@/components/Breadcrumb";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styles from "@/styles/ProductSingle.module.css";
@@ -18,6 +18,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
 import { Pagination } from "swiper/modules";
 import TopNavbar from "@/components/HomeComponents/TopNavbar";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,6 +47,22 @@ const SingleKit = ({ kit, categories, error }) => {
   const [qty, setQty] = useState(1);
   const [value, setValue] = useState(0);
   const [rating, setRating] = useState(0);
+
+  const targetRef = useRef(null);
+
+  // Function to scroll to the target element
+  const scrollToElement = () => {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleShowReviews = (event, newValue) => {
+    setValue(newValue);
+    setTimeout(() => {
+      scrollToElement();
+    }, 500);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -146,9 +163,11 @@ const SingleKit = ({ kit, categories, error }) => {
                       </span>
                       <div
                         className={`d-flex align-items-center justify-content-between gap-3`}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => handleShowReviews(e, 2)}
                       >
                         <Rating name="read-only" value={kit.rating} readOnly />
-                        {`(${kit?.reviews?.length})`}
+                        {`(${kit?.reviews?.length} reviews)`}
                       </div>
                     </div>
                     <div>
@@ -162,7 +181,15 @@ const SingleKit = ({ kit, categories, error }) => {
                     <div>
                       <Row className="mt-2">
                         <Col>Shop name</Col>
-                        <Col>{kit.kit_shop_name}</Col>
+                        <Col>
+                          <Link
+                            className="nav-link text-capitalize"
+                            href={`/shops/${kit?.kit_shop_id}/products`}
+                          >
+                            {kit.kit_shop_name}
+                            <RemoveRedEyeIcon className="ms-2" />
+                          </Link>
+                        </Col>
                       </Row>
                     </div>
                     <Divider sx={{ background: "gray" }} className="my-4" />
@@ -200,15 +227,26 @@ const SingleKit = ({ kit, categories, error }) => {
                         onChange={handleChange}
                         aria-label="basic tabs example"
                       >
-                        <Tab label="Items list" {...a11yProps(0)} />
-                        <Tab label="Description" {...a11yProps(1)} />
-                        <Tab
-                          label={`Reviews ${kit?.reviews?.length}`}
-                          {...a11yProps(2)}
-                        />
+                        <Tab label="Description" {...a11yProps(0)} />
+                        <Tab label="Items list" {...a11yProps(1)} />
+                        <Tab label={`Reviews`} {...a11yProps(2)} />
                       </Tabs>
                     </Box>
+
                     <CustomTabPanel value={value} index={0}>
+                      {kit.details ? (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: kit.details,
+                          }}
+                        />
+                      ) : (
+                        <Typography>
+                          There is no description for this kit
+                        </Typography>
+                      )}
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={1}>
                       <div>
                         <Typography
                           className="mb-3"
@@ -243,22 +281,8 @@ const SingleKit = ({ kit, categories, error }) => {
                         </Typography>
                       )} */}
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
-                      {kit.details ? (
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: kit.details,
-                          }}
-                        />
-                      ) : (
-                        <Typography>
-                          There is no description for this kit
-                        </Typography>
-                      )}
-                    </CustomTabPanel>
-
                     <CustomTabPanel value={value} index={2}>
-                      <h5>
+                      <h5 ref={targetRef}>
                         {kit?.reviews?.length} Review For {kit.name}
                       </h5>
                       <div className="mt-5">

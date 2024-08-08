@@ -108,28 +108,30 @@ const kits = ({ kits, sort, categoryId, filter, error }) => {
       return (
         <Col key={item.id} sm={12} md={4} className={`mb-4`}>
           <Paper elevation={3} className={`${cardStyles.card}`}>
-            <div className={`${cardStyles.imageContainer}`}>
-              <img
-                src={item.kit_image}
-                alt={item.kit_name}
-                className={`${cardStyles.image}`}
-                style={{ objectFit: "cover" }}
-              />
-              <div className={`${cardStyles.tools}`}>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <AddShoppingCartIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <ShuffleIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <ZoomInIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <FavoriteBorderIcon className={`${cardStyles.icon}`} />
+            <Link href={`/kits/${item.id}`} className="nav-link">
+              <div className={`${cardStyles.imageContainer}`}>
+                <img
+                  src={item.kit_image}
+                  alt={item.kit_name}
+                  className={`${cardStyles.image}`}
+                  style={{ objectFit: "cover" }}
+                />
+                <div className={`${cardStyles.tools}`}>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <AddShoppingCartIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <ShuffleIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <ZoomInIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <FavoriteBorderIcon className={`${cardStyles.icon}`} />
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
             <div className="mt-2 px-3 py-3">
               <div className={cardStyles.title}>
                 <Link href={`/kits/${item.id}`} className="nav-link">
@@ -142,7 +144,7 @@ const kits = ({ kits, sort, categoryId, filter, error }) => {
                 {item.reviews && (
                   <span
                     className={cardStyles.reviewCounts}
-                  >{`(${item.reviews})`}</span>
+                  >{`(${item.reviews}) reviews`}</span>
                 )}
               </div>
             </div>
@@ -161,7 +163,7 @@ const kits = ({ kits, sort, categoryId, filter, error }) => {
             styles={styles}
             filter={filter}
             prices={prices}
-            showPrices={true}
+            showPrices={filter?.price_display}
             handlePricesChange={handlePriceChange}
             handlePriceChangeMin={handlePriceChangeMin}
             handlePriceChangeMax={handlePriceChangeMax}

@@ -19,11 +19,17 @@ import "@/styles/globals.css";
 import { getCategories } from "@/api/categories";
 import { Provider } from "react-redux";
 import { store } from "@/store";
+import Footer from "@/components/Footer";
+import TopMessageBar from "@/components/TopMessageBar";
+import GDPR from "@/components/GDPR";
+import axios from "axios";
 
 export default function App({ Component, pageProps }) {
   const setIsAnimating = useProgressStore((state) => state.setIsAnimating);
   const isAnimating = useProgressStore((state) => state.isAnimating);
   const router = useRouter();
+  const [appearGDPR, setAppearGDPR] = useState(false);
+  const [announcements, setAnnouncements] = useState(null);
 
   useEffect(() => {
     const handleStart = () => {
@@ -44,15 +50,48 @@ export default function App({ Component, pageProps }) {
       router.events.off("routeChangeError", handleStop);
     };
   }, [router]);
+
   useEffect(() => {
     AOS.init();
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("cookieConsent") === null) {
+      setAppearGDPR(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAnnouncements();
+  }, []);
+
+  const fetchAnnouncements = async () => {
+    const res = await axios.get("/api/announcements");
+    console.log({ announcements: res.data });
+    setAnnouncements(res.data);
+  };
+
   return (
     <Provider store={store}>
       <Progress isAnimating={isAnimating} />
+      {announcements && (
+        <Fragment>
+          {announcements?.map((item) => {
+            return (
+              <TopMessageBar
+                key={item.id}
+                message={item.message}
+                active={item.active}
+              />
+            );
+          })}
+        </Fragment>
+      )}
       <TopNavbar />
       <Menubar />
       <Component {...pageProps} />
+      <Footer />
+      {appearGDPR && <GDPR />}
     </Provider>
   );
 }

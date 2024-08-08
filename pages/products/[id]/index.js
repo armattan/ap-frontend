@@ -1,6 +1,6 @@
 import { getProduct, getProducts, getProductsCategories } from "@/api/products";
 import Breadcrumb from "@/components/Breadcrumb";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styles from "@/styles/ProductSingle.module.css";
@@ -14,6 +14,8 @@ import { getCategories } from "@/api/categories";
 import TopNavbar from "@/components/HomeComponents/TopNavbar";
 import { getHardwareCategories } from "@/api/hardwares";
 import { getKitsCategories } from "@/api/kits";
+import Link from "next/link";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,48 +44,24 @@ const SingleProduct = ({ recentItems, product, error }) => {
   const [qty, setQty] = useState(1);
   const [value, setValue] = useState(0);
   const [rating, setRating] = useState(0);
+  const targetRef = useRef(null);
+
+  // Function to scroll to the target element
+  const scrollToElement = () => {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleShowReviews = (event, newValue) => {
+    setValue(newValue);
+    setTimeout(() => {
+      scrollToElement();
+    }, 500);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const displayRecentItems = () => {
-    return recentItems?.items?.map((item) => {
-      return (
-        <Row key={item.id} className={`mb-3`}>
-          <Col sm={12} md={4} lg={4}>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <img
-                src={item.thumbnail_image}
-                style={{ width: "100%", height: "100%" }}
-                alt={item.product_heading}
-              />
-            </div>
-          </Col>
-          <Col sm={12} md={8} lg={8}>
-            <h6 className="mb-2">{item.product_heading.substring(0, 30)}...</h6>
-            <span
-              style={{ color: "var(--secondary-color)", fontWeight: "bold" }}
-            >
-              ${item.deal_price}
-            </span>
-            <div>
-              <Rating
-                name="read-only"
-                value={item?.rating}
-                readOnly
-                size="small"
-              />
-            </div>
-          </Col>
-        </Row>
-      );
-    });
   };
 
   return (
@@ -117,13 +95,15 @@ const SingleProduct = ({ recentItems, product, error }) => {
                       </span>
                       <div
                         className={`d-flex align-items-center justify-content-between gap-3`}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => handleShowReviews(e, 1)}
                       >
                         <Rating
                           name="read-only"
                           value={product.rating}
                           readOnly
                         />
-                        {`(${product?.reviews?.length})`}
+                        {`(${product?.reviews?.length} reviews)`}
                       </div>
                     </div>
                     <div>
@@ -175,7 +155,15 @@ const SingleProduct = ({ recentItems, product, error }) => {
                       <Divider sx={{ background: "gray" }} className="mt-3" />
                       <Row className="mt-2">
                         <Col>Shop</Col>
-                        <Col>{product?.shop_name}</Col>
+                        <Col>
+                          <Link
+                            className="nav-link text-capitalize"
+                            href={`/shops/${product?.shop_id}/products`}
+                          >
+                            {product?.shop_name}
+                            <RemoveRedEyeIcon className="ms-2" />
+                          </Link>
+                        </Col>
                       </Row>
                     </div>
                     <Divider sx={{ background: "gray" }} className="my-4" />
@@ -214,10 +202,7 @@ const SingleProduct = ({ recentItems, product, error }) => {
                         aria-label="basic tabs example"
                       >
                         <Tab label="Description" {...a11yProps(0)} />
-                        <Tab
-                          label={`Reviews ${product?.reviews?.length}`}
-                          {...a11yProps(2)}
-                        />
+                        <Tab label={`Reviews`} {...a11yProps(2)} />
                       </Tabs>
                     </Box>
                     <CustomTabPanel value={value} index={0}>
@@ -229,7 +214,7 @@ const SingleProduct = ({ recentItems, product, error }) => {
                     </CustomTabPanel>
 
                     <CustomTabPanel value={value} index={1}>
-                      <h5>
+                      <h5 ref={targetRef}>
                         {product?.reviews?.length} Review For{" "}
                         {product?.product_heading}
                       </h5>

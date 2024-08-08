@@ -114,28 +114,30 @@ const hardwares = ({
       return (
         <Col key={item.id} sm={12} md={4} className={`mb-4`}>
           <Paper elevation={3} className={`${cardStyles.card}`}>
-            <div className={`${cardStyles.imageContainer}`}>
-              <img
-                src={item.image}
-                alt={item.name}
-                className={`${cardStyles.image}`}
-                style={{ objectFit: "cover" }}
-              />
-              <div className={`${cardStyles.tools}`}>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <AddShoppingCartIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <ShuffleIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <ZoomInIcon className={`${cardStyles.icon}`} />
-                </div>
-                <div className={`${cardStyles.iconWrapper}`}>
-                  <FavoriteBorderIcon className={`${cardStyles.icon}`} />
+            <Link href={`/hardwares/${item.id}`} className="nav-link">
+              <div className={`${cardStyles.imageContainer}`}>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={`${cardStyles.image}`}
+                  style={{ objectFit: "cover" }}
+                />
+                <div className={`${cardStyles.tools}`}>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <AddShoppingCartIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <ShuffleIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <ZoomInIcon className={`${cardStyles.icon}`} />
+                  </div>
+                  <div className={`${cardStyles.iconWrapper}`}>
+                    <FavoriteBorderIcon className={`${cardStyles.icon}`} />
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
             <div className="mt-2 px-3 py-3">
               <div className={cardStyles.title}>
                 <Link href={`/hardwares/${item.id}`} className="nav-link">
@@ -143,14 +145,6 @@ const hardwares = ({
                 </Link>
               </div>
               <div className={cardStyles.price}>${item.price}</div>
-              <div className={`d-flex align-items-center mt-3 gap-3`}>
-                <Rating name="read-only" value={item.rating} readOnly />
-                {item.rating && (
-                  <span
-                    className={cardStyles.reviewCounts}
-                  >{`(${item.reviews.length}) reviews`}</span>
-                )}
-              </div>
             </div>
           </Paper>
         </Col>
@@ -190,7 +184,6 @@ const hardwares = ({
                       >
                         <MenuItem value={"desc"}>Newest</MenuItem>
                         <MenuItem value={"asc"}>Oldest</MenuItem>
-                        <MenuItem value={"rating"}>Highest Rating</MenuItem>
                       </Select>
                     </FormControl>
                   </div>

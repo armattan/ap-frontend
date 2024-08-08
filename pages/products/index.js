@@ -108,7 +108,7 @@ const Products = ({ products, sort, filter, error }) => {
             styles={styles}
             filter={filter}
             prices={prices}
-            showPrices={true}
+            showPrices={filter?.price_display}
             handlePricesChange={handlePriceChange}
             handlePriceChangeMin={handlePriceChangeMin}
             handlePriceChangeMax={handlePriceChangeMax}
